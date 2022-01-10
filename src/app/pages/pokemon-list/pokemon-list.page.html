@@ -7,9 +7,7 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let pokemon of allPokemon">
-      <ion-label> {{ pokemon.name }} </ion-label>
-    </ion-item>
+      <app-pokemon-card *ngFor="let pokemon of allPokemon" [pokemon]="pokemon"></app-pokemon-card>
   </ion-list>
 
 </ion-content>

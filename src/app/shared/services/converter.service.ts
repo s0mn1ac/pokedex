@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { PokemonType } from '../enums/pokemon-type.enum';
+import { PokedexData } from '../models/pokedex-data.model';
 import { Pokemon } from '../models/pokemon.model';
 
 @Injectable({
@@ -6,20 +8,30 @@ import { Pokemon } from '../models/pokemon.model';
 })
 export class ConverterService {
 
-    public convertAllPokemonFromReport(report: any): Pokemon[] {
+    public convertPokedexDataFromReport(report: any): PokedexData {
 
-        if (report?.results == null || report?.results?.length === 0) {
-            return;
-        }
+        const pokedexData: PokedexData = new PokedexData();
 
-        const allPokemon: Pokemon[] = report?.results?.map((reportItem: any) => {
-            const pokemon: Pokemon = new Pokemon();
-            pokemon.name = reportItem.name;
-            pokemon.url = reportItem.url;
-            return pokemon;
-        });
+        pokedexData.next = report?.next;
+        pokedexData.results = report?.results;
 
-        return allPokemon;
+        return pokedexData;
+    }
+
+    public convertPokemonFromReport(report: any): Pokemon {
+
+        const pokemon: Pokemon = new Pokemon();
+
+        pokemon.id = report?.id;
+        pokemon.name = report?.name;
+        pokemon.image = report?.sprites?.front_default;
+        pokemon.types = this.getTypes(report?.types);
+
+        return pokemon;
+    }
+
+    private getTypes(rawTypes: any[]): PokemonType[] {
+        return rawTypes.map((rawType: any) => PokemonType[rawType?.type as keyof typeof PokemonType]);
     }
 
 }
