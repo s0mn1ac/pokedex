@@ -24,7 +24,7 @@ export class ConverterService {
 
         pokemon.id = report?.id;
         pokemon.name = report?.name;
-        pokemon.image = report?.sprites?.front_default;
+        pokemon.image = report?.sprites?.other?.['official-artwork'].front_default;
         pokemon.types = this.getTypes(report?.types);
 
         return pokemon;
