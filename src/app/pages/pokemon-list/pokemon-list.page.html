@@ -6,6 +6,8 @@
 
 <ion-content>
 
+  <ion-spinner name="crescent" *ngIf="isSpinnerEnabled"></ion-spinner>
+
   <ion-list>
       <app-pokemon-card *ngFor="let pokemon of allPokemon" [pokemon]="pokemon"></app-pokemon-card>
   </ion-list>

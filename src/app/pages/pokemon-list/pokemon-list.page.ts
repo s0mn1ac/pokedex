@@ -14,6 +14,8 @@ export class PokemonListPage implements OnInit {
 
   public counter = 0;
 
+  public isSpinnerEnabled: boolean;
+
   private results: Result[] = [];
 
   constructor(private pokemonListService: PokemonListService) { }
@@ -24,7 +26,9 @@ export class PokemonListPage implements OnInit {
 
   private async initPokedex(): Promise<void> {
 
-    this.allPokemon = JSON.parse(localStorage.getItem('allPokemon')) ?? [];
+    this.isSpinnerEnabled = true;
+
+    // this.allPokemon = JSON.parse(localStorage.getItem('allPokemon')) ?? [];
 
     if (this.allPokemon?.length !== 0) {
       console.log(this.allPokemon);
@@ -35,6 +39,8 @@ export class PokemonListPage implements OnInit {
     await this.getAllPokemon();
 
     console.log(this.allPokemon);
+
+    this.isSpinnerEnabled = false;
   }
 
   private async getPokedexData(url?: string): Promise<void> {
@@ -43,7 +49,7 @@ export class PokemonListPage implements OnInit {
     // if (pokedexData?.next != null) {
     //   await this.getPokedexData(pokedexData?.next);
     // }
-    if (pokedexData?.next != null && this.counter < 1) {
+    if (pokedexData?.next != null && this.counter < 5) {
       this.counter = this.counter + 1;
       await this.getPokedexData(pokedexData?.next);
     }
