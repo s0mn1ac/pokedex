@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>pokemon-list</ion-title>
+  <ion-toolbar color="danger">
+    <ion-title> Pokedex mini </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-spinner name="crescent" *ngIf="isSpinnerEnabled"></ion-spinner>
+  <ion-spinner name="crescent" color="danger" *ngIf="isSpinnerEnabled"></ion-spinner>
 
   <ion-list>
       <app-pokemon-card *ngFor="let pokemon of allPokemon" [pokemon]="pokemon"></app-pokemon-card>
