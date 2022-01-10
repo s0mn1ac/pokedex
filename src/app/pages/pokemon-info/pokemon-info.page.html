@@ -6,4 +6,8 @@
 
 <ion-content>
 
+  <ion-spinner name="crescent" color="danger" *ngIf="isSpinnerEnabled"></ion-spinner>
+
+  <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+
 </ion-content>

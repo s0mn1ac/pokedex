@@ -9,7 +9,7 @@
   <ion-spinner name="crescent" color="danger" *ngIf="isSpinnerEnabled"></ion-spinner>
 
   <ion-list>
-      <app-pokemon-card *ngFor="let pokemon of allPokemon" [pokemon]="pokemon"></app-pokemon-card>
+      <app-pokemon-card *ngFor="let pokemon of allPokemon" [pokemon]="pokemon" [routerLink]="'/pokemon/' + pokemon?.id"></app-pokemon-card>
   </ion-list>
 
 </ion-content>

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PokemonInfoPageRoutingModule } from './pokemon-info-routing.module';
 
 import { PokemonInfoPage } from './pokemon-info.page';
+import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-card.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { PokemonInfoPage } from './pokemon-info.page';
     IonicModule,
     PokemonInfoPageRoutingModule
   ],
-  declarations: [PokemonInfoPage]
+  declarations: [
+    PokemonInfoPage,
+    PokemonCardComponent
+  ]
 })
 export class PokemonInfoPageModule {}
