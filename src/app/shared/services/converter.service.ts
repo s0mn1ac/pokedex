@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { PokemonType } from '../enums/pokemon-type.enum';
+import { PokemonTypeEnum } from '../enums/pokemon-type.enum';
 import { PokedexData } from '../models/pokedex-data.model';
+import { PokemonType } from '../models/pokemon-type.model';
 import { Pokemon } from '../models/pokemon.model';
 
 @Injectable({
@@ -31,7 +32,9 @@ export class ConverterService {
     }
 
     private getTypes(rawTypes: any[]): PokemonType[] {
-        return rawTypes.map((rawType: any) => PokemonType[rawType?.type as keyof typeof PokemonType]);
+        return rawTypes.map((rawType: any) => (
+            { id: rawType?.slot, type: PokemonTypeEnum[rawType?.type?.name as keyof typeof PokemonTypeEnum] }
+        ));
     }
 
 }

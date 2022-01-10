@@ -26,12 +26,15 @@ export class PokemonListPage implements OnInit {
 
     this.allPokemon = JSON.parse(localStorage.getItem('allPokemon')) ?? [];
 
-    // if (this.allPokemon?.length !== 0) {
-    //   return;
-    // }
+    if (this.allPokemon?.length !== 0) {
+      console.log(this.allPokemon);
+      return;
+    }
 
     await this.getPokedexData();
     await this.getAllPokemon();
+
+    console.log(this.allPokemon);
   }
 
   private async getPokedexData(url?: string): Promise<void> {

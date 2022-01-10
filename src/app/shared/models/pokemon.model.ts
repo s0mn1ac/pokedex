@@ -1,4 +1,4 @@
-import { PokemonType } from '../enums/pokemon-type.enum';
+import { PokemonType } from './pokemon-type.model';
 
 export class Pokemon {
     id: number;
