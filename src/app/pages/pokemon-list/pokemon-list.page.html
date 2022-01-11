@@ -1,15 +1,30 @@
 <ion-header>
-  <ion-toolbar color="danger">
-    <ion-title> Pokedex mini </ion-title>
+
+  <ion-toolbar color="danger" mode="md">
+    
+    <ion-title *ngIf="!isSearchbarVisible"> Pokedex mini </ion-title>
+    
+    <ion-searchbar #customSearchbar *ngIf="isSearchbarVisible" (search)="onSearch($event)" (ionInput)="onSearch($event)"
+      (ionCancel)="hideSearchbar()" showCancelButton="always" color="danger" placeholder="Buscar Pokemon"></ion-searchbar>
+
+    <ion-buttons slot="end" #test>
+      <ion-button shape="round" *ngIf="!isSearchbarVisible" (click)="showSearchbar()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
 
   <ion-spinner name="crescent" color="danger" *ngIf="isSpinnerEnabled"></ion-spinner>
 
-  <ion-list>
-      <app-pokemon-card *ngFor="let pokemon of allPokemon" [pokemon]="pokemon" [routerLink]="'/pokemon/' + pokemon?.id"></app-pokemon-card>
-  </ion-list>
+  <cdk-virtual-scroll-viewport itemSize="120" minBufferPx="900" maxBufferPx="1350">
+    <ion-list>
+        <app-pokemon-card *cdkVirtualFor="let pokemon of displayedPokemon" [pokemon]="pokemon" [routerLink]="'/pokemon/' + pokemon?.id"></app-pokemon-card>
+    </ion-list>
+  </cdk-virtual-scroll-viewport>
 
 </ion-content>

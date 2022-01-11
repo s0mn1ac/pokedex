@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSearchbar } from '@ionic/angular';
 import { PokedexData, Result } from 'src/app/shared/models/pokedex-data.model';
 import { Pokemon } from 'src/app/shared/models/pokemon.model';
 import { PokemonListService } from './pokemon-list.service';
@@ -10,11 +11,15 @@ import { PokemonListService } from './pokemon-list.service';
 })
 export class PokemonListPage implements OnInit {
 
-  public allPokemon: Pokemon[] = [];
+  @ViewChild('customSearchbar') customSearchbar: IonSearchbar;
+
+  public allAvailablePokemon: Pokemon[] = [];
+  public displayedPokemon: Pokemon[] = [];
 
   public counter = 0;
 
   public isSpinnerEnabled: boolean;
+  public isSearchbarVisible: boolean;
 
   private results: Result[] = [];
 
@@ -24,21 +29,35 @@ export class PokemonListPage implements OnInit {
     this.initPokedex();
   }
 
+  public showSearchbar() {
+    this.isSearchbarVisible = true;
+    setTimeout(() => this.customSearchbar.setFocus(), 1);
+  }
+
+  public hideSearchbar() {
+    this.isSearchbarVisible = false;
+    this.displayedPokemon = this.allAvailablePokemon;
+  }
+
+  public onSearch(event: any): void {
+    const value: string = event?.target?.value;
+    this.displayedPokemon = this.allAvailablePokemon.filter((pokemon: Pokemon) => pokemon.name.startsWith(value));
+  }
+
   private async initPokedex(): Promise<void> {
 
     this.isSpinnerEnabled = true;
 
-    // this.allPokemon = JSON.parse(localStorage.getItem('allPokemon')) ?? [];
+    this.allAvailablePokemon = JSON.parse(localStorage.getItem('allPokemon')) ?? [];
 
-    if (this.allPokemon?.length !== 0) {
-      console.log(this.allPokemon);
+    if (this.allAvailablePokemon?.length !== 0) {
+      this.displayedPokemon = this.allAvailablePokemon;
+      this.isSpinnerEnabled = false;
       return;
     }
 
     await this.getPokedexData();
     await this.getAllPokemon();
-
-    console.log(this.allPokemon);
 
     this.isSpinnerEnabled = false;
   }
@@ -46,19 +65,20 @@ export class PokemonListPage implements OnInit {
   private async getPokedexData(url?: string): Promise<void> {
     const pokedexData: PokedexData = await this.pokemonListService.getPokedexData(url);
     this.results = this.results.concat(pokedexData.results);
-    // if (pokedexData?.next != null) {
-    //   await this.getPokedexData(pokedexData?.next);
-    // }
-    if (pokedexData?.next != null && this.counter < 5) {
-      this.counter = this.counter + 1;
+    if (pokedexData?.next != null) {
       await this.getPokedexData(pokedexData?.next);
     }
+    // if (pokedexData?.next != null && this.counter < 5) {
+    //   this.counter = this.counter + 1;
+    //   await this.getPokedexData(pokedexData?.next);
+    // }
   }
 
   private async getAllPokemon(): Promise<void> {
     const promises: Promise<Pokemon>[] = this.results?.map((result: Result) => this.pokemonListService.getPokemon(result.url));
-    this.allPokemon = await Promise.all(promises);
-    localStorage.setItem('allPokemon', JSON.stringify(this.allPokemon));
+    this.allAvailablePokemon = await Promise.all(promises);
+    this.displayedPokemon = this.allAvailablePokemon;
+    localStorage.setItem('allPokemon', JSON.stringify(this.allAvailablePokemon));
   }
 
 }
