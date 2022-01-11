@@ -16,9 +16,6 @@ import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-ca
     IonicModule,
     PokemonInfoPageRoutingModule
   ],
-  declarations: [
-    PokemonInfoPage,
-    PokemonCardComponent
-  ]
+  declarations: [PokemonInfoPage]
 })
 export class PokemonInfoPageModule {}
