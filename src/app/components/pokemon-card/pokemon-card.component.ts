@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PokemonInfo } from 'src/app/shared/models/pokemon-info.model';
 import { Pokemon } from 'src/app/shared/models/pokemon.model';
 
 @Component({
@@ -8,7 +9,7 @@ import { Pokemon } from 'src/app/shared/models/pokemon.model';
 })
 export class PokemonCardComponent implements OnInit {
 
-  @Input() pokemon: Pokemon;
+  @Input() pokemon: Pokemon | PokemonInfo;
 
   constructor() { }
 

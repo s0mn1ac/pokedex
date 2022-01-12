@@ -1,0 +1,6 @@
+
+<div class="flex-row pokemon-type-pills">
+    <div class="pokemon-type-pill flex-row" [ngClass]="'type-color-' + pokemonType?.type" *ngFor="let pokemonType of pokemonTypes">
+        <label> {{ pokemonType?.type }} </label>
+    </div>
+</div>

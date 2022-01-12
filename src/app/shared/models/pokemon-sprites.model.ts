@@ -1,4 +1,5 @@
 export class PokemonSprites {
+    officialArtwork: string;
     frontDefault: string;
     backDefault: string;
     frontFemale: string;

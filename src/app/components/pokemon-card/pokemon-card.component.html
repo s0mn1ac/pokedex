@@ -1,8 +1,12 @@
 <ion-card>
 
-    <ion-card-header>
+    <ion-card-header [style.background]="pokemon?.color">
         <img class="pokemon-image" [src]="pokemon?.image">
-        <ion-card-title> {{ pokemon?.name | titlecase }} </ion-card-title>
+        <div class="flex-column">
+            <ion-card-title> {{ pokemon?.name | titlecase }} </ion-card-title>
+            <div class="flex-row">
+                <app-pokemon-type-pills [pokemonTypes]="pokemon?.types"></app-pokemon-type-pills>
+            </div>
+        </div>
     </ion-card-header>
-
 </ion-card>

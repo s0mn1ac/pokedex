@@ -4,6 +4,15 @@ img.pokemon-image {
     width: 5rem;
 }
 
-ion-card-title {
-    margin: 2rem 0rem;
+ion-card {
+    height: 120px;
+    border-radius: 1rem;
+
+    ion-card-header {
+        height: 100%;
+
+        ion-card-title {
+            margin: 1rem 0rem;
+        }
+    }
 }
