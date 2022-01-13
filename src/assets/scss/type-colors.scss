@@ -1,79 +1,81 @@
+@import './colors.scss';
+
 .type-color-normal {
-    background-color: #A8A77A;
+    background-color: $normal;
 }
 
 .type-color-fighting {
-    background-color: #C22E28;
+    background-color: $fighting;
 }
 
 .type-color-flying {
-    background-color: #A98FF3;
+    background-color: $flying;
 }
 
 .type-color-poison {
-    background-color: #A33EA1;
+    background-color: $poison;
 }
 
 .type-color-ground {
-    background-color: #E2BF65;
+    background-color: $ground;
 }
 
 .type-color-rock {
-    background-color: #B6A136;
+    background-color: $rock;
 }
 
 .type-color-bug {
-    background-color: #A6B91A;
+    background-color: $bug;
 }
 
 .type-color-ghost {
-    background-color: #735797;
+    background-color: $ghost;
 }
 
 .type-color-steel {
-    background-color: #B7B7CE;
+    background-color: $steel;
 }
 
 .type-color-fire {
-    background-color: #EE8130;
+    background-color: $fire;
 }
 
 .type-color-water {
-    background-color: #6390F0;
+    background-color: $water;
 }
 
 .type-color-grass {
-    background-color: #7AC74C;
+    background-color: $grass;
 }
 
 .type-color-electric {
-    background-color: #F7D02C;
+    background-color: $electric;
 }
 
 .type-color-psychic {
-    background-color: #F95587;
+    background-color: $psychic;
 }
 
 .type-color-ice {
-    background-color: #96D9D6;
+    background-color: $ice;
 }
 
 .type-color-dragon {
-    background-color: #6F35FC;
+    background-color: $dragon;
 }
 
 .type-color-dark {
-    background-color: #705746;
+    background-color: $dark;
 }
 
 .type-color-fairy {
-    background-color: #D685AD;
+    background-color: $fairy;
 }
 
 .type-color-shadow {
-    background-color: #000000;
+    background-color: $shadow;
 }
 
 .type-color-unknown {
-    background-color: #000000;
+    background-color: $unknown;
 }

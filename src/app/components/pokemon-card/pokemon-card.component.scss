@@ -1,18 +1,91 @@
-img.pokemon-image {
-    position: absolute;
-    right: 1rem;
-    width: 5rem;
-}
+@import '../../../assets/scss/colors.scss';
 
 ion-card {
     height: 120px;
     border-radius: 1rem;
+    box-shadow: none;
 
     ion-card-header {
         height: 100%;
 
-        ion-card-title {
-            margin: 1rem 0rem;
+        .pokemon-card {
+            width: 100%;
+            height: 100%;
+
+            .pokemon-container {
+                height: 100%;
+                justify-content: center;
+                flex-grow: 1;
+    
+                .pokemon-title {
+                    align-items: center;
+                    margin-bottom: 1rem;
+        
+                    .pokemon-number {
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-right: 0.5rem;
+                        color: $text-black;
+                        opacity: 0.5;
+                    }
+    
+                    .pokemon-name {
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-right: 0.5rem;
+                        flex-grow: 1;
+                        color: $text-black;
+                    }
+
+                    ion-checkbox {
+                        margin-right: 0.5rem;
+                    }
+                }
+            }
+
+            .image-container {
+                justify-content: center;
+                align-items: center;
+
+                img.pokemon-image {
+                    width: 100px;
+                    padding-left: 0.5rem;
+                    filter: drop-shadow(4px 4px 2px $black-shadow);
+                }
+            }
         }
+    }
+}
+
+.pokeball-checkbox.checkbox-checked {
+
+    svg {
+        display: none;
+    }
+
+    &::before {
+        content: "";
+        z-index: 1;
+        height: 13px;
+        width: 26px;
+        background-color: red;
+        position: absolute;
+        top: 0rem;
+        left: 0rem;
+        border-top-left-radius: 26px;
+        border-top-right-radius: 26px;
+    }
+
+    &::after {
+        content: "";
+        z-index: 1;
+        height: 13px;
+        width: 26px;
+        background-color: white;
+        position: absolute;
+        bottom: 0rem;
+        left: 0rem;
+        border-bottom-left-radius: 26px;
+        border-bottom-right-radius: 26px;
     }
 }

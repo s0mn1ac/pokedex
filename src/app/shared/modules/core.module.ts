@@ -6,11 +6,13 @@ import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-ca
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { IonicModule } from '@ionic/angular';
 import { PokemonTypePillComponent } from 'src/app/components/pokemon-type-pill/pokemon-type-pills.component';
+import { FormatPokemonNumberPipe } from '../pipes/format-pokemon-number.pipe';
 
 @NgModule({
     declarations: [
         PokemonCardComponent,
-        PokemonTypePillComponent
+        PokemonTypePillComponent,
+        FormatPokemonNumberPipe
     ],
     imports: [
         CommonModule,
@@ -28,7 +30,8 @@ import { PokemonTypePillComponent } from 'src/app/components/pokemon-type-pill/p
         ScrollingModule,
         IonicModule,
         PokemonCardComponent,
-        PokemonTypePillComponent
+        PokemonTypePillComponent,
+        FormatPokemonNumberPipe
     ],
     providers: []
 })

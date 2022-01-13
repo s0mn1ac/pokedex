@@ -1,12 +1,27 @@
 <ion-card>
 
     <ion-card-header [style.background]="pokemon?.color">
-        <img class="pokemon-image" [src]="pokemon?.image">
-        <div class="flex-column">
-            <ion-card-title> {{ pokemon?.name | titlecase }} </ion-card-title>
-            <div class="flex-row">
+
+        <div class="pokemon-card flex-row">
+
+            <div class="pokemon-container flex-column">
+    
+                <div class="pokemon-title flex-row">
+                    <label class="pokemon-number"> {{ pokemon?.id | formatPokemonNumber }} </label>
+                    <label class="pokemon-name"> {{ pokemon?.name | titlecase }} </label>
+                    <!-- <ion-checkbox mode="ios" class="pokeball-checkbox" color="danger" (ionChange)="onChangePokemonCatchStatus($event)"> </ion-checkbox> -->
+                </div>
+    
                 <app-pokemon-type-pills [pokemonTypes]="pokemon?.types"></app-pokemon-type-pills>
+    
             </div>
-        </div>
+    
+            <div class="image-container flex-column">
+                <img class="pokemon-image" [src]="pokemon?.image">
+            </div>
+
+        </div> 
+
     </ion-card-header>
+
 </ion-card>

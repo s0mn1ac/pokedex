@@ -56,7 +56,8 @@ export class ConverterService {
     private getTypes(rawTypes: any[]): PokemonType[] {
         return rawTypes.map((rawType: any) => ({
             id: rawType?.slot,
-            type: PokemonTypeEnum[rawType?.type?.name as keyof typeof PokemonTypeEnum]
+            type: PokemonTypeEnum[rawType?.type?.name as keyof typeof PokemonTypeEnum],
+            color: this.getPokemonTypeColor(PokemonTypeEnum[rawType?.type?.name as keyof typeof PokemonTypeEnum])
         }));
     }
 
@@ -121,6 +122,54 @@ export class ConverterService {
                 return '#CCCCCC';
             default:
                 return '#CCCCCC';
+        }
+    }
+
+    private getPokemonTypeColor(pokemonTypeEnum: PokemonTypeEnum): string {
+
+        switch (pokemonTypeEnum) {
+            case (PokemonTypeEnum.normal):
+                return '#A8A77A';
+            case (PokemonTypeEnum.fighting):
+                return '#C22E28';
+            case (PokemonTypeEnum.flying):
+                return '#A98FF3';
+            case (PokemonTypeEnum.poison):
+                return '#A33EA1';
+            case (PokemonTypeEnum.ground):
+                return '#E2BF65';
+            case (PokemonTypeEnum.rock):
+                return '#B6A136';
+            case (PokemonTypeEnum.bug):
+                return '#A6B91A';
+            case (PokemonTypeEnum.ghost):
+                return '#735797';
+            case (PokemonTypeEnum.steel):
+                return '#B7B7CE';
+            case (PokemonTypeEnum.fire):
+                return '#EE8130';
+            case (PokemonTypeEnum.water):
+                return '#6390F0';
+            case (PokemonTypeEnum.grass):
+                return '#7AC74C';
+            case (PokemonTypeEnum.electric):
+                return '#F7D02C';
+            case (PokemonTypeEnum.psychic):
+                return '#F95587';
+            case (PokemonTypeEnum.ice):
+                return '#96D9D6';
+            case (PokemonTypeEnum.dragon):
+                return '#6F35FC';
+            case (PokemonTypeEnum.dark):
+                return '#705746';
+            case (PokemonTypeEnum.fairy):
+                return '#D685AD';
+            case (PokemonTypeEnum.shadow):
+                return '#000000';
+            case (PokemonTypeEnum.unknown):
+                return '#000000';
+            default:
+                return '#000000';
         }
     }
 

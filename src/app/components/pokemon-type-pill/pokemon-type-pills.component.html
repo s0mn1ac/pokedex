@@ -3,4 +3,5 @@
     <div class="pokemon-type-pill flex-row" [ngClass]="'type-color-' + pokemonType?.type" *ngFor="let pokemonType of pokemonTypes">
         <label> {{ pokemonType?.type }} </label>
     </div>
+    <div class="pokemon-type-pill flex-row empty-pill" *ngIf="pokemonTypes?.length < 2"> </div>
 </div>
