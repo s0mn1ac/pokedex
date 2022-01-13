@@ -68,10 +68,6 @@ export class PokemonListPage implements OnInit {
     if (pokedexData?.next != null) {
       await this.getPokedexData(pokedexData?.next);
     }
-    // if (pokedexData?.next != null && this.counter < 5) {
-    //   this.counter = this.counter + 1;
-    //   await this.getPokedexData(pokedexData?.next);
-    // }
   }
 
   private async getAllPokemon(): Promise<void> {

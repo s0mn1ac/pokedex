@@ -35,20 +35,25 @@ export class ConverterService {
         return pokemon;
     }
 
-    public convertPokemonInfoFromReport(report: any): PokemonInfo {
+    public convertPokemonInfoFromReport(infoReport: any, speciesReport: any, evolutionChainReport: any): PokemonInfo {
 
-        console.log(report);
+        console.log(infoReport);
+        console.log(speciesReport);
+        console.log(evolutionChainReport);
 
         const pokemonInfo: PokemonInfo = new PokemonInfo();
 
-        pokemonInfo.id = report?.id;
-        pokemonInfo.name = report?.name;
-        pokemonInfo.sprites = this.getPokemonSprites(report?.sprites);
+        pokemonInfo.id = infoReport?.id;
+        pokemonInfo.name = infoReport?.name;
+        pokemonInfo.sprites = this.getPokemonSprites(infoReport?.sprites);
         pokemonInfo.image = pokemonInfo.sprites.officialArtwork;
-        pokemonInfo.types = this.getTypes(report?.types);
+        pokemonInfo.types = this.getTypes(infoReport?.types);
         pokemonInfo.color = this.getPokemonColorByMainType(pokemonInfo.types);
-        pokemonInfo.height = (report?.height / 10);
-        pokemonInfo.weight = (report?.weight / 10);
+        pokemonInfo.height = (infoReport?.height / 10);
+        pokemonInfo.weight = (infoReport?.weight / 10);
+        pokemonInfo.order = this.getOrderOnNationalDex(speciesReport?.pokedex_numbers);
+        pokemonInfo.genera = this.getPokemonGenera(speciesReport?.genera);
+        pokemonInfo.description = this.getPokemonDescription(speciesReport?.flavor_text_entries);
 
         return pokemonInfo;
     }
@@ -171,6 +176,21 @@ export class ConverterService {
             default:
                 return '#000000';
         }
+    }
+
+    private getOrderOnNationalDex(pokedexNumbers: any[]): number {
+        const pokedexNumber: any =  pokedexNumbers?.find((pokedexEntry: any) => pokedexEntry?.pokedex?.name === 'national');
+        return pokedexNumber?.entry_number;
+    }
+
+    private getPokemonGenera(pokemonGeneras: any[]): string {
+        const pokemonGenera: any =  pokemonGeneras?.find((genera: any) => genera?.language?.name === 'es');
+        return pokemonGenera?.genus;
+    }
+
+    private getPokemonDescription(pokemonDescriptions: any[]): string {
+        const descriptions: any[] = pokemonDescriptions?.filter((pokemonDescription: any) => pokemonDescription?.language?.name === 'es');
+        return descriptions?.pop()?.flavor_text;
     }
 
 }

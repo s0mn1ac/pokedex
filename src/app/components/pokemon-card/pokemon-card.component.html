@@ -1,13 +1,13 @@
-<ion-card>
+<ion-card [style.background]="pokemon?.color">
 
-    <ion-card-header [style.background]="pokemon?.color">
+    <ion-card-header>
 
         <div class="pokemon-card flex-row">
 
             <div class="pokemon-container flex-column">
     
                 <div class="pokemon-title flex-row">
-                    <label class="pokemon-number"> {{ pokemon?.id | formatPokemonNumber }} </label>
+                    <label class="pokemon-number"> {{ pokemon?.order | formatPokemonNumber }} </label>
                     <label class="pokemon-name"> {{ pokemon?.name | titlecase }} </label>
                     <!-- <ion-checkbox mode="ios" class="pokeball-checkbox" color="danger" (ionChange)="onChangePokemonCatchStatus($event)"> </ion-checkbox> -->
                 </div>

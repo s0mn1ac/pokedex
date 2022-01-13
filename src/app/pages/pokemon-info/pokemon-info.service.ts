@@ -16,8 +16,10 @@ export class PokemonInfoService extends BaseService {
   }
 
   public async getPokemonInfo(id: number): Promise<PokemonInfo> {
-    const report = await this.getPokemonInfoReport(id);
-    return this.converterService.convertPokemonInfoFromReport(report);
+    const infoReport = await this.getPokemonInfoReport(id);
+    const speciesReport = await this.getDataByCustomUrl(infoReport?.species?.url);
+    const evolutionChainReport = await this.getDataByCustomUrl(speciesReport?.evolution_chain?.url);
+    return this.converterService.convertPokemonInfoFromReport(infoReport, speciesReport, evolutionChainReport);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -25,6 +27,14 @@ export class PokemonInfoService extends BaseService {
   private async getPokemonInfoReport(id: number): Promise<any> {
     return this.serviceGet({
       url: `${this.url}/pokemon/${id}`,
+      callback: (response: any) => response.body,
+      result: null
+    });
+  }
+
+  private async getDataByCustomUrl(url: string): Promise<any> {
+    return this.serviceGet({
+      url,
       callback: (response: any) => response.body,
       result: null
     });

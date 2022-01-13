@@ -1,7 +1,9 @@
-<ion-content [style.background]="pokemonInfo?.color">
+<ion-content color="warning" [style.background]="pokemonInfo?.color">
 
   <ion-spinner name="crescent" color="danger" *ngIf="isSpinnerEnabled"></ion-spinner>
 
   <app-pokemon-card [pokemon]="pokemonInfo"></app-pokemon-card>
+
+  <app-pokemon-description [pokemonInfo]="pokemonInfo"></app-pokemon-description>
 
 </ion-content>

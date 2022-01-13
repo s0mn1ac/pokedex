@@ -1,0 +1,29 @@
+<ion-card>
+
+    <ion-card-content>
+
+        <div class="flex-column">
+
+            <div class="description-container">
+                <ion-label class="description-label"> {{ pokemonInfo?.description }} </ion-label>
+            </div>
+
+            <div class="pokemon-values-container flex-row">
+
+                <div class="pokemon-value-container flex-row">
+                    <ion-label class="title"> Peso: </ion-label>
+                    <ion-label class="value"> {{ pokemonInfo?.weight + " kg." }} </ion-label>
+                </div>
+    
+                <div class="pokemon-value-container flex-row">
+                    <ion-label class="title"> Altura: </ion-label>
+                    <ion-label class="value"> {{ pokemonInfo?.height + " m." }} </ion-label>
+                </div>
+
+            </div>
+
+        </div>
+        
+    </ion-card-content>
+
+</ion-card>
