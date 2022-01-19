@@ -1,6 +1,6 @@
 @import '../../../assets/scss/colors.scss';
 
-.pokemon-description-layout {
+.pokemon-stats-layout {
     align-items: center;
 
     .title-container {
@@ -26,28 +26,17 @@
             color: $black-master;
             background: $white;
             text-align: center;
-        
-            .pokemon-values-container {
-                width: 100%;
+
+            .status-bar-container {
                 align-items: center;
-                margin-top: 1rem;
-        
-                .pokemon-value-container {
+
+                ion-label.title {
+                    margin-right: 1rem;
+                    width: 8rem;
+                }
+                
+                app-pokemon-progress-bar {
                     width: 100%;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 0.5rem;
-                    border: 1px solid black;
-                    padding: 0.3rem;
-        
-                    .title {
-                        margin-right: 0.5rem;
-                        font-weight: bold;
-                    }
-        
-                    &:first-child {
-                        margin-right: 1rem;
-                    }
                 }
             }
         }

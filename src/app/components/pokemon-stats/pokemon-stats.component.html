@@ -1,0 +1,28 @@
+<div class="pokemon-stats-layout flex-column">
+
+    <div class="title-container flex-row">
+        <ion-label class="title"> Estadísticas </ion-label>
+    </div>
+
+    <div class="card-container flex-row">
+
+        <ion-card>
+
+            <ion-card-content>
+
+                <div class="flex-column">
+
+                    <div class="status-bar-container flex-row" *ngFor="let pokemonStat of pokemonInfo?.stats">
+                        <ion-label class="title"> {{ pokemonStat?.stat }} </ion-label>
+                        <app-pokemon-progress-bar [stat]="pokemonStat"></app-pokemon-progress-bar>
+                    </div>
+
+                </div>
+                
+            </ion-card-content>
+
+        </ion-card>
+
+    </div>
+
+</div>

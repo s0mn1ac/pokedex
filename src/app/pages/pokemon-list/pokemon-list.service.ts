@@ -22,8 +22,9 @@ export class PokemonListService extends BaseService {
   }
 
   public async getPokemon(url: string): Promise<Pokemon> {
-    const report = await this.getPokemonReport(url);
-    return this.converterService.convertPokemonFromReport(report);
+    const report = await this.getDataByCustomUrl(url);
+    const speciesReport = await this.getDataByCustomUrl(report?.species?.url);
+    return this.converterService.convertPokemonFromReport(report, speciesReport);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -36,7 +37,7 @@ export class PokemonListService extends BaseService {
     });
   }
 
-  private async getPokemonReport(url: string): Promise<any> {
+  private async getDataByCustomUrl(url: string): Promise<any> {
     return this.serviceGet({
       url,
       callback: (response: any) => response.body,

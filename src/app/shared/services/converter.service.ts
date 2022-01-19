@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { PokemonStatEnum } from '../enums/pokemon-stat.enum';
 import { PokemonTypeEnum } from '../enums/pokemon-type.enum';
 import { PokedexData } from '../models/pokedex-data.model';
 import { PokemonInfo } from '../models/pokemon-info.model';
 import { PokemonSprites } from '../models/pokemon-sprites.model';
+import { PokemonStat } from '../models/pokemon-stat.model';
 import { PokemonType } from '../models/pokemon-type.model';
 import { Pokemon } from '../models/pokemon.model';
 
@@ -21,7 +23,7 @@ export class ConverterService {
         return pokedexData;
     }
 
-    public convertPokemonFromReport(report: any): Pokemon {
+    public convertPokemonFromReport(report: any, speciesReport: any): Pokemon {
 
         const pokemon: Pokemon = new Pokemon();
 
@@ -31,6 +33,7 @@ export class ConverterService {
         pokemon.image = pokemon.sprites.officialArtwork;
         pokemon.types = this.getTypes(report?.types);
         pokemon.color = this.getPokemonColorByMainType(pokemon.types);
+        pokemon.order = this.getOrderOnNationalDex(speciesReport?.pokedex_numbers);
 
         return pokemon;
     }
@@ -54,6 +57,9 @@ export class ConverterService {
         pokemonInfo.order = this.getOrderOnNationalDex(speciesReport?.pokedex_numbers);
         pokemonInfo.genera = this.getPokemonGenera(speciesReport?.genera);
         pokemonInfo.description = this.getPokemonDescription(speciesReport?.flavor_text_entries);
+        pokemonInfo.stats = this.getPokemonStats(infoReport?.stats);
+
+        console.log(pokemonInfo);
 
         return pokemonInfo;
     }
@@ -191,6 +197,50 @@ export class ConverterService {
     private getPokemonDescription(pokemonDescriptions: any[]): string {
         const descriptions: any[] = pokemonDescriptions?.filter((pokemonDescription: any) => pokemonDescription?.language?.name === 'es');
         return descriptions?.pop()?.flavor_text;
+    }
+
+    private getPokemonStats(rawPokemonStats: any[]): PokemonStat[] {
+
+        const pokemonStats: PokemonStat[] = [];
+
+        rawPokemonStats?.forEach((rawStat: any) => {
+
+            const pokemonStat: PokemonStat = new PokemonStat();
+
+            switch (rawStat?.stat?.name) {
+                case 'hp':
+                    pokemonStat.stat = PokemonStatEnum.hp;
+                    pokemonStat.color = '#D90429';
+                    break;
+                case 'attack':
+                    pokemonStat.stat = PokemonStatEnum.attack;
+                    pokemonStat.color = '#FB5607';
+                    break;
+                case 'defense':
+                    pokemonStat.stat = PokemonStatEnum.defense;
+                    pokemonStat.color = '#FFBE0B';
+                    break;
+                case 'special-attack':
+                    pokemonStat.stat = PokemonStatEnum.specialAttack;
+                    pokemonStat.color = '#3A86FF';
+                    break;
+                case 'special-defense':
+                    pokemonStat.stat = PokemonStatEnum.specialDefense;
+                    pokemonStat.color = '#00916E';
+                    break;
+                case 'speed':
+                    pokemonStat.stat = PokemonStatEnum.speed;
+                    pokemonStat.color = '#8338EC';
+                    break;
+                default:
+                    break;
+            }
+
+            pokemonStat.value = rawStat?.base_stat / 2;
+            pokemonStats.push(pokemonStat);
+        });
+
+        return pokemonStats;
     }
 
 }

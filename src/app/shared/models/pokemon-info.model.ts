@@ -1,3 +1,4 @@
+import { PokemonStat } from './pokemon-stat.model';
 import { Pokemon } from './pokemon.model';
 
 export class PokemonInfo extends Pokemon {
@@ -5,4 +6,5 @@ export class PokemonInfo extends Pokemon {
     weight: number;
     genera: string;
     description: string;
+    stats: PokemonStat[];
 }

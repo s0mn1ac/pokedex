@@ -1,29 +1,41 @@
-<ion-card>
+<div class="pokemon-description-layout flex-column">
 
-    <ion-card-content>
+    <div class="title-container flex-row">
+        <ion-label class="title"> Descripción </ion-label>
+    </div>
 
-        <div class="flex-column">
+    <div class="card-container flex-row">
 
-            <div class="description-container">
-                <ion-label class="description-label"> {{ pokemonInfo?.description }} </ion-label>
-            </div>
+        <ion-card>
 
-            <div class="pokemon-values-container flex-row">
+            <ion-card-content>
 
-                <div class="pokemon-value-container flex-row">
-                    <ion-label class="title"> Peso: </ion-label>
-                    <ion-label class="value"> {{ pokemonInfo?.weight + " kg." }} </ion-label>
+                <div class="flex-column">
+
+                    <div class="description-container">
+                        <ion-label class="description-label"> {{ pokemonInfo?.description }} </ion-label>
+                    </div>
+
+                    <div class="pokemon-values-container flex-row">
+
+                        <div class="pokemon-value-container flex-row">
+                            <ion-label class="title"> Peso: </ion-label>
+                            <ion-label class="value"> {{ pokemonInfo?.weight + " kg." }} </ion-label>
+                        </div>
+            
+                        <div class="pokemon-value-container flex-row">
+                            <ion-label class="title"> Altura: </ion-label>
+                            <ion-label class="value"> {{ pokemonInfo?.height + " m." }} </ion-label>
+                        </div>
+
+                    </div>
+
                 </div>
-    
-                <div class="pokemon-value-container flex-row">
-                    <ion-label class="title"> Altura: </ion-label>
-                    <ion-label class="value"> {{ pokemonInfo?.height + " m." }} </ion-label>
-                </div>
+                
+            </ion-card-content>
 
-            </div>
+        </ion-card>
 
-        </div>
-        
-    </ion-card-content>
+    </div>
 
-</ion-card>
+</div>
