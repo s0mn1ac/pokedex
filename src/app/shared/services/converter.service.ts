@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { PokemonStatEnum } from '../enums/pokemon-stat.enum';
 import { PokemonTypeEnum } from '../enums/pokemon-type.enum';
 import { PokedexData } from '../models/pokedex-data.model';
+import { PokemonEvolutionChain } from '../models/pokemon-evolution-chain.model';
 import { PokemonInfo } from '../models/pokemon-info.model';
 import { PokemonSprites } from '../models/pokemon-sprites.model';
 import { PokemonStat } from '../models/pokemon-stat.model';
@@ -58,6 +59,7 @@ export class ConverterService {
         pokemonInfo.genera = this.getPokemonGenera(speciesReport?.genera);
         pokemonInfo.description = this.getPokemonDescription(speciesReport?.flavor_text_entries);
         pokemonInfo.stats = this.getPokemonStats(infoReport?.stats);
+        pokemonInfo.evolutionChain = this.getPokemonEvolutionChain(evolutionChainReport?.chain);
 
         console.log(pokemonInfo);
 
@@ -241,6 +243,32 @@ export class ConverterService {
         });
 
         return pokemonStats;
+    }
+
+    private getPokemonEvolutionChain(rawPokemonEvolutionChain: any): PokemonEvolutionChain[] {
+
+        console.log(rawPokemonEvolutionChain);
+
+        const pokemonEvolutionChain: PokemonEvolutionChain[] = [];
+
+        // const pokemonEvolution: PokemonEvolutionChain = new PokemonEvolutionChain();
+        // pokemonEvolution.pokemonName = rawPokemonEvolutionChain?.species?.name;
+
+        // pokemonEvolutionChain.push(pokemonEvolution);
+
+        // if (rawPokemonEvolutionChain?.evolves_to?.length > 0) {
+        //     this.getPokemonEvolution()
+        // }
+
+
+
+        return pokemonEvolutionChain;
+    }
+
+    private getPokemonEvolution(rawPokemonEvolution): PokemonEvolutionChain {
+        const pokemonEvolution: PokemonEvolutionChain = new PokemonEvolutionChain();
+        // pokemonEvolution.pokemonName = rawPokemonEvolution?.species?.name;
+        return pokemonEvolution;
     }
 
 }

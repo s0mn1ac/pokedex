@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSearchbar } from '@ionic/angular';
 import { PokedexData, Result } from 'src/app/shared/models/pokedex-data.model';
+import { PokemonInfo } from 'src/app/shared/models/pokemon-info.model';
 import { Pokemon } from 'src/app/shared/models/pokemon.model';
-import { PokemonListService } from './pokemon-list.service';
+import { PokemonService } from 'src/app/shared/services/pokemon.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -13,8 +14,8 @@ export class PokemonListPage implements OnInit {
 
   @ViewChild('customSearchbar') customSearchbar: IonSearchbar;
 
-  public allAvailablePokemon: Pokemon[] = [];
-  public displayedPokemon: Pokemon[] = [];
+  public allAvailablePokemon: PokemonInfo[] = [];
+  public displayedPokemon: PokemonInfo[] = [];
 
   public counter = 0;
 
@@ -23,7 +24,7 @@ export class PokemonListPage implements OnInit {
 
   private results: Result[] = [];
 
-  constructor(private pokemonListService: PokemonListService) { }
+  constructor(private pokemonService: PokemonService) { }
 
   ngOnInit() {
     this.initPokedex();
@@ -48,7 +49,7 @@ export class PokemonListPage implements OnInit {
 
     this.isSpinnerEnabled = true;
 
-    this.allAvailablePokemon = JSON.parse(localStorage.getItem('allPokemon')) ?? [];
+    this.allAvailablePokemon = this.pokemonService.getAllAvailablePokemon();
 
     if (this.allAvailablePokemon?.length !== 0) {
       this.displayedPokemon = this.allAvailablePokemon;
@@ -57,24 +58,25 @@ export class PokemonListPage implements OnInit {
     }
 
     await this.getPokedexData();
-    await this.getAllPokemon();
+    await this.getAllPokemonInfo();
+    await this.getAllPokemonInfo();
 
     this.isSpinnerEnabled = false;
   }
 
   private async getPokedexData(url?: string): Promise<void> {
-    const pokedexData: PokedexData = await this.pokemonListService.getPokedexData(url);
+    const pokedexData: PokedexData = await this.pokemonService.getPokedexData(url);
     this.results = this.results.concat(pokedexData.results);
     if (pokedexData?.next != null) {
       await this.getPokedexData(pokedexData?.next);
     }
   }
 
-  private async getAllPokemon(): Promise<void> {
-    const promises: Promise<Pokemon>[] = this.results?.map((result: Result) => this.pokemonListService.getPokemon(result.url));
+  private async getAllPokemonInfo(): Promise<void> {
+    const promises: Promise<PokemonInfo>[] = this.results?.map((result: Result) => this.pokemonService.getPokemonInfo(result.url));
     this.allAvailablePokemon = await Promise.all(promises);
     this.displayedPokemon = this.allAvailablePokemon;
-    localStorage.setItem('allPokemon', JSON.stringify(this.allAvailablePokemon));
+    this.pokemonService.setAllAvailablePokemon(this.allAvailablePokemon);
   }
 
 }
