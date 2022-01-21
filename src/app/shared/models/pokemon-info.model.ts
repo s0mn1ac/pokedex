@@ -8,5 +8,7 @@ export class PokemonInfo extends Pokemon {
     genera: string;
     description: string;
     stats: PokemonStat[];
-    evolutionChain: PokemonEvolutionChain[];
+    evolutionChain: string[];
+    evolvesFrom: string;
+    evolvesTo: string[];
 }

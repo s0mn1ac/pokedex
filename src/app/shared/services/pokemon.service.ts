@@ -24,10 +24,17 @@ export class PokemonService extends BaseService {
     return this.converterService.convertPokedexDataFromReport(report);
   }
 
-  public async getPokemonInfo(url: string): Promise<PokemonInfo> {
-    const infoReport = await this.getDataByCustomUrl(url);
-    const speciesReport = await this.getDataByCustomUrl(infoReport?.species?.url);
-    const evolutionChainReport = await this.getDataByCustomUrl(speciesReport?.evolution_chain?.url);
+  public async getPokemonInfoById(id: number): Promise<PokemonInfo> {
+    const infoReport = await this.getPokemonInfoByIdReport(id);
+    const speciesReport = await this.getPokemonInfoByUrlReport(infoReport?.species?.url);
+    const evolutionChainReport = await this.getPokemonInfoByUrlReport(speciesReport?.evolution_chain?.url);
+    return this.converterService.convertPokemonInfoFromReport(infoReport, speciesReport, evolutionChainReport);
+  }
+
+  public async getPokemonInfoByUrl(url: string): Promise<PokemonInfo> {
+    const infoReport = await this.getPokemonInfoByUrlReport(url);
+    const speciesReport = await this.getPokemonInfoByUrlReport(infoReport?.species?.url);
+    const evolutionChainReport = await this.getPokemonInfoByUrlReport(speciesReport?.evolution_chain?.url);
     return this.converterService.convertPokemonInfoFromReport(infoReport, speciesReport, evolutionChainReport);
   }
 
@@ -52,7 +59,15 @@ export class PokemonService extends BaseService {
     });
   }
 
-  private async getDataByCustomUrl(url: string): Promise<any> {
+  private async getPokemonInfoByIdReport(id: number): Promise<any> {
+    return this.serviceGet({
+      url: `${this.url}/pokemon/${id}`,
+      callback: (response: any) => response.body,
+      result: null
+    });
+  }
+
+  private async getPokemonInfoByUrlReport(url: string): Promise<any> {
     return this.serviceGet({
       url,
       callback: (response: any) => response.body,

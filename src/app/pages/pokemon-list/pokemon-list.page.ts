@@ -73,10 +73,21 @@ export class PokemonListPage implements OnInit {
   }
 
   private async getAllPokemonInfo(): Promise<void> {
-    const promises: Promise<PokemonInfo>[] = this.results?.map((result: Result) => this.pokemonService.getPokemonInfo(result.url));
+    const promises: Promise<PokemonInfo>[] = this.results?.map((result: Result) => this.pokemonService.getPokemonInfoByUrl(result.url));
     this.allAvailablePokemon = await Promise.all(promises);
+    this.updatePokemonInfo();
     this.displayedPokemon = this.allAvailablePokemon;
     this.pokemonService.setAllAvailablePokemon(this.allAvailablePokemon);
+  }
+
+  private updatePokemonInfo(): void {
+    this.allAvailablePokemon?.forEach((pokemonInfo: PokemonInfo) => {
+      const preEvolution: PokemonInfo = this.allAvailablePokemon?.find((pokemonToFind: PokemonInfo) =>
+        pokemonToFind.name === pokemonInfo.evolvesFrom);
+      if (preEvolution != null) {
+        preEvolution.evolvesTo.push(pokemonInfo.name);
+      }
+    });
   }
 
 }

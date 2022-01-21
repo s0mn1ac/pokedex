@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Route } from '@angular/router';
 import { PokemonInfo } from 'src/app/shared/models/pokemon-info.model';
 import { Pokemon } from 'src/app/shared/models/pokemon.model';
 import { PokemonService } from 'src/app/shared/services/pokemon.service';
-import { PokemonInfoService } from './pokemon-info.service';
 
 @Component({
   selector: 'app-pokemon-info',
@@ -16,10 +15,7 @@ export class PokemonInfoPage implements OnInit {
 
   public isSpinnerEnabled: boolean;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private pokemonService: PokemonService,
-    private pokemonInfoService: PokemonInfoService) { }
+  constructor(private activatedRoute: ActivatedRoute, private pokemonService: PokemonService) { }
 
   ngOnInit() {
     this.initParamsSubscription();
@@ -34,12 +30,12 @@ export class PokemonInfoPage implements OnInit {
     const allPokemon: PokemonInfo[] = this.pokemonService.getAllAvailablePokemon();
     this.pokemonInfo = allPokemon?.find((pokemonInfo: PokemonInfo) => pokemonInfo.id === id);
 
-    if (this.pokemonInfo != null) {
-      return;
-    }
+    // if (this.pokemonInfo != null) {
+    //   return;
+    // }
 
     this.isSpinnerEnabled = true;
-    this.pokemonInfo = await this.pokemonInfoService.getPokemonInfo(id);
+    this.pokemonInfo = await this.pokemonService.getPokemonInfoById(id);
     this.isSpinnerEnabled = false;
   }
 
