@@ -1,0 +1,20 @@
+<div class="custom-card-layout flex-row">
+
+    <div class="custom-card-container pokemon-card-mini-container flex-column" [routerLink]="'/pokemon/' + pokemonInfo?.id"
+        [style.background]="pokemonInfo?.color">
+
+        <div class="pokemon-image-container flex-column">
+            <img class="pokemon-image" [src]="pokemonInfo?.image">
+        </div>
+
+        <div class="pokemon-name-container flex-column">
+            <ion-label class="pokemon-name"> {{ pokemonInfo?.name | titlecase }} </ion-label>
+        </div>
+
+        <div class="pokemon-type-balls-container flex-row">
+            <div class="type-ball" *ngFor="let type of pokemonInfo?.types" [style.background]="type?.color"> </div>
+        </div>
+
+    </div>
+
+</div>

@@ -6,6 +6,7 @@ import { PokemonDescriptionComponent } from 'src/app/components/pokemon-descript
 import { PokemonStatsComponent } from 'src/app/components/pokemon-stats/pokemon-stats.component';
 import { PokemonProgressBarComponent } from 'src/app/components/pokemon-progress-bar/pokemon-progress-bar.component';
 import { PokemonEvolutionChainComponent } from 'src/app/components/pokemon-evolution-chain/pokemon-evolution-chain.component';
+import { PokemonCardMiniComponent } from 'src/app/components/pokemon-card-mini/pokemon-card-mini.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { PokemonEvolutionChainComponent } from 'src/app/components/pokemon-evolu
     PokemonDescriptionComponent,
     PokemonStatsComponent,
     PokemonProgressBarComponent,
-    PokemonEvolutionChainComponent
+    PokemonEvolutionChainComponent,
+    PokemonCardMiniComponent
   ]
 })
 export class PokemonInfoPageModule {}

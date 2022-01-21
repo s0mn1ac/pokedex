@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Route } from '@angular/router';
+import { ActivatedRoute, Params, Route, Router } from '@angular/router';
 import { PokemonInfo } from 'src/app/shared/models/pokemon-info.model';
-import { Pokemon } from 'src/app/shared/models/pokemon.model';
 import { PokemonService } from 'src/app/shared/services/pokemon.service';
 
 @Component({
@@ -12,10 +11,11 @@ import { PokemonService } from 'src/app/shared/services/pokemon.service';
 export class PokemonInfoPage implements OnInit {
 
   public pokemonInfo: PokemonInfo;
+  public allAvailablePokemon: PokemonInfo[];
 
   public isSpinnerEnabled: boolean;
 
-  constructor(private activatedRoute: ActivatedRoute, private pokemonService: PokemonService) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private pokemonService: PokemonService) { }
 
   ngOnInit() {
     this.initParamsSubscription();
@@ -27,16 +27,14 @@ export class PokemonInfoPage implements OnInit {
 
   private async getPokemonInfo(id: number): Promise<void> {
 
-    const allPokemon: PokemonInfo[] = this.pokemonService.getAllAvailablePokemon();
-    this.pokemonInfo = allPokemon?.find((pokemonInfo: PokemonInfo) => pokemonInfo.id === id);
+    this.allAvailablePokemon = this.pokemonService.getAllAvailablePokemon();
+    this.pokemonInfo = this.allAvailablePokemon?.find((pokemonInfo: PokemonInfo) => pokemonInfo.id === id);
 
-    // if (this.pokemonInfo != null) {
-    //   return;
-    // }
+    if (this.pokemonInfo != null) {
+      return;
+    }
 
-    this.isSpinnerEnabled = true;
-    this.pokemonInfo = await this.pokemonService.getPokemonInfoById(id);
-    this.isSpinnerEnabled = false;
+    this.router.navigate(['/']);
   }
 
 }

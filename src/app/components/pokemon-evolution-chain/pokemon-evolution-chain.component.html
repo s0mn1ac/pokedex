@@ -1,1 +1,27 @@
-<p>pokemon-evolution-chain works!</p>
+<div class="pokemon-evolution-chain-layout flex-column">
+
+    <div class="title-container flex-row">
+        <ion-label class="title"> Cadena evolutiva </ion-label>
+    </div>
+
+    <div class="card-container flex-column">
+
+        <div class="custom-card-layout flex-row">
+    
+            <div class="custom-card-container pokemon-evolution-chain-card-container flex-column" [style.background]="pokemonInfo?.color">
+    
+                <div class="pokemon-evolution-chain-container flex-row">
+    
+                    <div class="container" *ngFor="let evolution of evolutionChain">
+                        <app-pokemon-card-mini [pokemonInfo]="evolution"> </app-pokemon-card-mini>
+                    </div>
+    
+                </div>
+                    
+            </div>
+    
+        </div>
+
+    </div>
+
+</div>

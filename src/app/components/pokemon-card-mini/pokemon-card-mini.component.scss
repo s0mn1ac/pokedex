@@ -1,0 +1,33 @@
+@import '../../../assets/scss/colors.scss';
+
+.pokemon-card-mini-container {
+
+    .pokemon-image-container {
+        justify-content: center;
+        align-items: center;
+
+        img {
+            max-width: 60px;
+        }
+    }
+    
+    .pokemon-name-container {
+        justify-content: center;
+        align-items: center;
+        color: $text-black;
+        font-weight: bold;
+        font-size: 12px;
+    }
+    
+    .pokemon-type-balls-container {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .type-ball {
+        height: 1rem;
+        width: 1rem;
+        border-radius: 1rem;
+        margin: 0.5rem;
+    }
+}

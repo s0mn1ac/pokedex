@@ -10,6 +10,15 @@
     flex-direction: column;
 }
 
-.custom-card {
-    
+.custom-card-layout {
+    padding: 0.5rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    .custom-card-container {
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        background-color: $white;
+    }
 }

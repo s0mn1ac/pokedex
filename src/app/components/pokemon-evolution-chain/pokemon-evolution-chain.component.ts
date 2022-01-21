@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PokemonInfo } from 'src/app/shared/models/pokemon-info.model';
 
 @Component({
   selector: 'app-pokemon-evolution-chain',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PokemonEvolutionChainComponent implements OnInit {
 
-  constructor() { }
+  @Input() pokemonInfo: PokemonInfo;
+  @Input() allAvailablePokemon: PokemonInfo[];
+
+  public evolutionChain: PokemonInfo[];
 
   ngOnInit(): void {
+    console.log(this.pokemonInfo);
+    console.log(this.allAvailablePokemon);
+    this.buildEvolutionChain();
+  }
+
+  private buildEvolutionChain(): void {
+    this.evolutionChain = [];
+    this.pokemonInfo?.evolutionChain?.forEach((pokemonName: string) => {
+      const pokemonInfo: PokemonInfo = this.allAvailablePokemon?.find((pokemonToFind: PokemonInfo) =>
+        pokemonToFind.name === pokemonName);
+      if (pokemonInfo != null) {
+        this.evolutionChain.push(pokemonInfo);
+      }
+    });
   }
 
 }

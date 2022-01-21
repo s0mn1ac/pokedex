@@ -1,0 +1,38 @@
+@import '../../../assets/scss/colors.scss';
+
+.pokemon-evolution-chain-layout {
+    align-items: center;
+
+    .title-container {
+        margin-top: 0.5rem;
+        width: 100%;
+        justify-content: center;
+
+        ion-label.title {
+            color: $text-black;
+            opacity: 0.5;
+            font-weight: bold;
+        }
+    }
+
+    .card-container {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+
+        .pokemon-evolution-chain-card-container {
+            background-color: $white !important;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+
+            .pokemon-evolution-chain-container {
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                max-width: 500px;
+                width: 100%;
+            }
+        }
+    }
+}
