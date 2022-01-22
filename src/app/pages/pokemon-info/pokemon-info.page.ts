@@ -30,6 +30,9 @@ export class PokemonInfoPage implements OnInit {
     this.allAvailablePokemon = this.pokemonService.getAllAvailablePokemon();
     this.pokemonInfo = this.allAvailablePokemon?.find((pokemonInfo: PokemonInfo) => pokemonInfo.id === id);
 
+    await this.pokemonService.getPokemonInfoById(id);
+    await this.pokemonService.getAllPokemonAbilities();
+
     if (this.pokemonInfo != null) {
       return;
     }

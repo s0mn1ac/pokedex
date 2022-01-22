@@ -11,4 +11,5 @@ export class PokemonInfo extends Pokemon {
     evolutionChain: string[];
     evolvesFrom: string;
     evolvesTo: string[];
+    abilities: string;
 }

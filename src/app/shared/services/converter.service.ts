@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { PokemonStatEnum } from '../enums/pokemon-stat.enum';
 import { PokemonTypeEnum } from '../enums/pokemon-type.enum';
 import { PokedexData } from '../models/pokedex-data.model';
+import { PokemonAbility } from '../models/pokemon-ability.model';
 import { PokemonInfo } from '../models/pokemon-info.model';
 import { PokemonSprites } from '../models/pokemon-sprites.model';
 import { PokemonStat } from '../models/pokemon-stat.model';
@@ -24,9 +25,7 @@ export class ConverterService {
     }
 
     public convertPokemonFromReport(report: any, speciesReport: any): Pokemon {
-
         const pokemon: Pokemon = new Pokemon();
-
         pokemon.id = report?.id;
         pokemon.name = report?.name;
         pokemon.sprites = this.getPokemonSprites(report?.sprites);
@@ -34,18 +33,11 @@ export class ConverterService {
         pokemon.types = this.getTypes(report?.types);
         pokemon.color = this.getPokemonColorByMainType(pokemon.types);
         pokemon.order = this.getOrderOnNationalDex(speciesReport?.pokedex_numbers);
-
         return pokemon;
     }
 
     public convertPokemonInfoFromReport(infoReport: any, speciesReport: any, evolutionChainReport: any): PokemonInfo {
-
-        // console.log(infoReport);
-        // console.log(speciesReport);
-        // console.log(evolutionChainReport);
-
         const pokemonInfo: PokemonInfo = new PokemonInfo();
-
         pokemonInfo.id = infoReport?.id;
         pokemonInfo.name = infoReport?.name;
         pokemonInfo.sprites = this.getPokemonSprites(infoReport?.sprites);
@@ -61,10 +53,15 @@ export class ConverterService {
         pokemonInfo.evolutionChain = this.getPokemonEvolutionChain(evolutionChainReport);
         pokemonInfo.evolvesFrom = speciesReport?.evolves_from_species?.name;
         pokemonInfo.evolvesTo = [];
-
-        console.log(pokemonInfo);
-
         return pokemonInfo;
+    }
+
+    public convertAbilityFromReport(report: any): PokemonAbility {
+        const pokemonAbility: PokemonAbility = new PokemonAbility();
+        pokemonAbility.id = report?.id;
+        pokemonAbility.name = report?.names?.find((name: any) => name?.language?.name === 'es')?.name;
+        pokemonAbility.description = report?.flavor_text_entries?.find((text: any) => text?.language?.name === 'es')?.flavor_text;
+        return pokemonAbility;
     }
 
     private getTypes(rawTypes: any[]): PokemonType[] {

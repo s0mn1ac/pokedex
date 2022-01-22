@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { PokemonInfo } from 'src/app/shared/models/pokemon-info.model';
 import { BaseService } from 'src/app/shared/services/base.service';
 import { ConverterService } from 'src/app/shared/services/converter.service';
-import { PokedexData } from '../models/pokedex-data.model';
+import { PokedexData, Result } from '../models/pokedex-data.model';
+import { PokemonAbility } from '../models/pokemon-ability.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class PokemonService extends BaseService {
     this.allAvailablePokemon = JSON.parse(localStorage.getItem('allAvailablePokemon')) ?? [];
   }
 
-  public async getPokedexData(url = `${this.url}/pokemon`): Promise<PokedexData> {
+  public async getPokedexData(url: string = `${this.url}/pokemon`): Promise<PokedexData> {
     const report = await this.getPokedexDataReport(url);
     return this.converterService.convertPokedexDataFromReport(report);
   }
@@ -28,6 +29,9 @@ export class PokemonService extends BaseService {
     const infoReport = await this.getPokemonInfoByIdReport(id);
     const speciesReport = await this.getPokemonInfoByUrlReport(infoReport?.species?.url);
     const evolutionChainReport = await this.getPokemonInfoByUrlReport(speciesReport?.evolution_chain?.url);
+    console.log('infoReport', infoReport);
+    console.log('speciesReport', speciesReport);
+    console.log('evolutionChainReport', evolutionChainReport);
     return this.converterService.convertPokemonInfoFromReport(infoReport, speciesReport, evolutionChainReport);
   }
 
@@ -36,6 +40,20 @@ export class PokemonService extends BaseService {
     const speciesReport = await this.getPokemonInfoByUrlReport(infoReport?.species?.url);
     const evolutionChainReport = await this.getPokemonInfoByUrlReport(speciesReport?.evolution_chain?.url);
     return this.converterService.convertPokemonInfoFromReport(infoReport, speciesReport, evolutionChainReport);
+  }
+
+  public async getAllPokemonAbilities(url: string = `${this.url}/ability`): Promise<PokemonAbility[]> {
+    const report = await this.getPokedexDataReport(url);
+    const promises: Promise<PokemonAbility>[] = report?.results?.map((result: Result) => this.getPokemonAbilityByUrl(result.url));
+    const allPokemonAbilities: PokemonAbility[] = await Promise.all(promises);
+    console.log('allPokemonAbilities', allPokemonAbilities);
+    return allPokemonAbilities;
+  }
+
+  public async getPokemonAbilityByUrl(url: string): Promise<PokemonAbility> {
+    const report = await this.getDataByUrlReport(url);
+    return this.converterService.convertAbilityFromReport(report);
+    console.log('report', report);
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -68,6 +86,14 @@ export class PokemonService extends BaseService {
   }
 
   private async getPokemonInfoByUrlReport(url: string): Promise<any> {
+    return this.serviceGet({
+      url,
+      callback: (response: any) => response.body,
+      result: null
+    });
+  }
+
+  private async getDataByUrlReport(url: string): Promise<any> {
     return this.serviceGet({
       url,
       callback: (response: any) => response.body,

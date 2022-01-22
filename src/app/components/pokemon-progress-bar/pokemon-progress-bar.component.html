@@ -1,4 +1,6 @@
 <div class="pokemon-progress-bar-layout flex-row">
-    <div class="progress-bar-value" [style.background]="stat?.color" [style.width]="stat?.value + '%'"></div>
+    <div class="progress-bar-value" [style.background]="stat?.color" [style.width]="stat?.value + '%'">
+        <div class="numeric-value flex-column"> {{ stat?.value * 2 }} </div>
+    </div>
     <div class="progress-bar-background" [style.background]="stat?.color"></div>
 </div>
